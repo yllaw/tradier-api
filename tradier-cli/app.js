@@ -26,8 +26,9 @@ async function search(searchTerm = 'apple') {
     print(results)
 }
 
-async function getQuote() {
-
+async function getQuote(symbol) {
+    const quote = await tradier.getQuote(symbol)
+    console.log(JSON.stringify(quote))
 }
 
 module.exports = {

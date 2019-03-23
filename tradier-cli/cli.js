@@ -17,6 +17,17 @@ const flags = yargs.usage('$0: Usage <cmd> [options]')
         },
         handler: (argv) => {app.search( argv.keyword ) }
     })
+    .command({
+        command: 'quote',
+        desc: 'get quote of equity symbol',
+        builder: (yargs) => {
+            return yargs.option('q', {
+                alias: 'symbol',
+                describe: 'symbol used to get equity quote'
+            })
+        },
+        handler: (argv) => {app.getQuote( argv.symbol )}
+    })
     .help('help')
     .argv
 
