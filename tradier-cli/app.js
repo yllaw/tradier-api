@@ -2,21 +2,27 @@ const
     tradier = require('tradier'),
     inquirer = require('inquirer')
 
-
 const print = (results) => {
-    // console.log(JSON.stringify(results))
+    const equities = results.securities.security;
 
     console.log(`\n --- Stocks ---`)
-    results.securities.security.forEach(stock => {
-        console.log(`${stock.symbol}
-        ${stock.description}`)
-    })
+    if (equities.length > 1) {
+        equities.forEach(stock => {
+            //template literal formatting
+            console.log(`${stock.symbol}     ${stock.description}
+        `)
+        })
+    } else {
+        //template literal formatting
+        console.log(`${equities.symbol}     ${equities.description}
+        `)
+        
+    }
 }
 
 
 async function search(searchTerm = 'apple') {
     const results = await tradier.getSearchResults(searchTerm)
-    
     print(results)
 }
 
