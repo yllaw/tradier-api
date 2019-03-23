@@ -1,0 +1,16 @@
+{
+    "name": "tradier-app",
+    "version": "1.0.0",
+    "description": "app for interacting with tradier API",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Marco Argentieri",
+    "license": "MIT",
+    "dependencies": {
+        "inquirer": "^6.2.2",
+        "tradier": "file:../tradier",
+        "yargs": "^13.2.2"
+    }
+}
