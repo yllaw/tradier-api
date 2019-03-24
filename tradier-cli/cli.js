@@ -1,25 +1,23 @@
 const
     app = require('./app'),
     yargs = require('yargs')
-    const argv = require('yargs').argv
-
 
 
 const flags = yargs.usage('$0: Usage <cmd> [options]')
     .command({
         command: 'search',
-        desc: 'search stock symbols listed on exchanges',
+        desc: '-s <searchparam> Search stock symbols listed on exchanges',
         builder: (yargs) => {
             return yargs.option('s', {
                 alias: 'keyword',
-                describe: 'keyword used to search for stocks'
+                describe: 'Keyword used to search for stocks'
             })
         },
         handler: (argv) => {app.search( argv.keyword ) }
     })
     .command({
         command: 'quote',
-        desc: 'get quote of equity symbol',
+        desc: '-q <symbol> Get quote of equity symbol',
         builder: (yargs) => {
             return yargs.option('q', {
                 alias: 'symbol',

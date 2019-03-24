@@ -22,8 +22,8 @@ const _fetch = (command) => {
         .catch(error => error.response.body)
 }
 
-exports.getSearchResults = (search) => {
-        return _fetch(`markets/search?q=${search}`)
+exports.getSearchResults = (searchTerm) => {
+        return _fetch(`markets/search?q=${searchTerm}`)
 }
 
 exports.getQuote = (symbol) => {

@@ -32,6 +32,7 @@ Change: ${change}   ${change_percentage}%
 Volume: ${volume}   Average Volume: ${average_volume}
 Open: ${open}       Intraday High: ${high}      Intraday Low: ${low}        Prev Close: ${prevclose}
 52-Week High: ${week_52_high}       52-Week Low: ${week_52_low}
+Type: ${type}
 `)
 
 }
@@ -60,7 +61,6 @@ async function equitiesPrompt(results) {
 
 async function search(searchTerm = 'apple') {
     const equities = await tradier.getSearchResults(searchTerm)
-    printEquities(equities)
     equitiesPrompt(equities)
 }
 
