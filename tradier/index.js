@@ -3,16 +3,8 @@ const
     superagent = require('superagent')
 
 
-// curl -X GET "https://sandbox.tradier.com/v1/markets/quotes?symbols=spy" \
-//      "Accept: application/json"
-//      -H "Authorization: Bearer s2G7B3ihhp36AzkSrgvP7aVuwn8Y" \
-//      -m 30 \
-//      -v
-
 // curl -H"Accept: application/json" -H "Authorization: Bearer s2G7B3ihhp36AzkSrgvP7aVuwn8Y" https://sandbox.tradier.com/v1/markets/search?q=technology
-    
- // curl -H"Accept: application/json" -H "Authorization: Bearer s2G7B3ihhp36AzkSrgvP7aVuwn8Y" https://sandbox.tradier.com/v1/markets/quotes?symbols=aapl
-    
+
 
 const _fetch = (command) => {    
     return superagent.get(`${config.url}/${command}`)

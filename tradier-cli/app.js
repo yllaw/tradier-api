@@ -4,6 +4,7 @@ const
 
 const printEquities = (results) => {
     const equities = results.securities.security;
+    console.log("equities");
 
     console.log(`\n --- Stocks ---`)
     if (equities.length > 1) {
@@ -38,28 +39,51 @@ Type: ${type}
 }
 
 async function equitiesPrompt(results) {
-    const displayEquities = results.securities.security.map(equity => {
-        return {
-            name: `${equity.symbol}        ${equity.description}`,
-            value: equity.symbol
-        }
-    })
+    let displayEquities
 
-    return inquirer.prompt([{
-        type: 'list',
-        message: 'Select security to view',
-        name: 'security',
-        choices: displayEquities,
-        validate: securities => {
-            return true
+    // check if security is found
+    if (results.securities != null) {
+        const equities = results.securities.security;
+        
+        // check if multiple potential answers are found
+        if (equities.length > 1) {
+            displayEquities = equities.map(equity => { // map into choices list
+                return {
+                    name: `${equity.symbol}        ${equity.description}`,
+                    value: equity.symbol
+                }
+            })
+        } else {
+            displayEquities = [{
+                name: `${equities.symbol}        ${equities.description}`,
+                value: equities.symbol 
+            }]
         }
-    }]).then(answers => {
-        getQuote(answers.security)
-    });
+
+
+
+        return inquirer.prompt([{
+            type: 'list',
+            message: 'Select security to view',
+            name: 'security',
+            choices: displayEquities,
+        }]).then(answers => { // if security is selected then getQuote 
+            getQuote(answers.security)
+        });
+    } else { // else no security has been found
+        console.log("Error: No security/equity found! Please search with a different keyword!")
+    }
 }
 
 
-async function search(searchTerm = 'apple') {
+async function search(searchTerm) {
+    // check for imput
+    if (searchTerm === undefined) {
+        console.log(`ERROR: search is undefined, default search = 'apple'
+Remember to use 'search -s <searchparam>'`)
+        searchTerm = "apple"
+    }
+    // get securities list
     const equities = await tradier.getSearchResults(searchTerm)
     equitiesPrompt(equities)
 }
