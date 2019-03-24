@@ -22,12 +22,14 @@ const printEquities = (results) => {
 }
 
 const printQuote = (quote) => {
-    const { symbol, description, type, last, change, change_percentage, volume, average_volume, open, high, low, prevclose, week_52_high, week_52_low } = quote.quotes.quote
+    console.log(quote) // TODO: add support to quote multiple tickers
+    if (quote != null) {
+        const { symbol, description, type, last, change, change_percentage, volume, average_volume, open, high, low, prevclose, week_52_high, week_52_low } = quote.quotes.quote
 
-    console.log(`\n --- ${symbol} ---`)
+        console.log(`\n --- ${symbol} ---`)
     
-    //template literal formatting
-    console.log(`${description}
+        //template literal formatting
+        console.log(`${description}
 Price: ${last}
 Change: ${change}   ${change_percentage}%
 Volume: ${volume}   Average Volume: ${average_volume}
@@ -35,6 +37,9 @@ Open: ${open}       Intraday High: ${high}      Intraday Low: ${low}        Prev
 52-Week High: ${week_52_high}       52-Week Low: ${week_52_low}
 Type: ${type}
 `)
+    } else {
+        console.log(`ERROR: Equity symbol not found! Please use the search command to lookup companies by name.`)
+    }        
 
 }
 
@@ -79,7 +84,8 @@ async function equitiesPrompt(results) {
 async function search(searchTerm) {
     // check for imput
     if (searchTerm === undefined) {
-        console.log(`ERROR: search is undefined, default search = 'apple'
+        console.log(`
+ERROR: search is undefined, default search = 'apple'
 Remember to use 'search -s <searchparam>'`)
         searchTerm = "apple"
     }
@@ -89,6 +95,13 @@ Remember to use 'search -s <searchparam>'`)
 }
 
 async function getQuote(symbol) {
+    // check for imput
+    if (symbol === undefined) {
+        console.log(`
+ERROR: symbol is undefined, default symbol = 'AAPL'
+Remember to use 'quote -q <symbol>'`)
+        symbol = "AAPL"
+    }
     const quote = await tradier.getQuote(symbol)
     printQuote(quote)
 }
